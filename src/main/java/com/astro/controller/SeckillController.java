@@ -29,7 +29,7 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(name = "/list" , method = RequestMethod.GET)
+    @RequestMapping(value = "/list" , method = RequestMethod.GET)
     public String list(Model model){
 
         List<Seckill> list = seckillService.getSeckillList();
@@ -37,7 +37,7 @@ public class SeckillController {
         return "list";
     }
 
-    @RequestMapping(name = "/{seckillId}/detail",method = RequestMethod.GET)
+    @RequestMapping(value = "/{seckillId}/detail",method = RequestMethod.GET)
     public String detail(@PathVariable("seckillId") Long seckillId,
                         Model model){
         if (seckillId == null){
@@ -52,7 +52,7 @@ public class SeckillController {
         return "detail";
     }
 
-    @RequestMapping(name = "/{seckillId}/exposer" , method = RequestMethod.POST,
+    @RequestMapping(value = "/{seckillId}/exposer" , method = RequestMethod.POST,
                     produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public SeckillResult<Exposer> exposer(@PathVariable("seckillId") Long seckillId){
