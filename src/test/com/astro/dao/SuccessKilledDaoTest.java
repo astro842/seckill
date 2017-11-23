@@ -18,7 +18,7 @@ public class SuccessKilledDaoTest {
 
     @Test
     public void insertSuccessKilled() throws Exception {
-        int i = successKilledDao.insertSuccessKilled(1000, 11111);
+        int i = successKilledDao.insertSuccessKilled(1000, 111);
         System.out.println(i);
 
     }
@@ -28,7 +28,7 @@ public class SuccessKilledDaoTest {
 
         Successkilled result = successKilledDao.queryByIdWithSeckill(1000,123);
         System.out.println(result);
-       System.out.println(result.getSeckill());
+        System.out.println(result.getSeckill());
     }
 
 }
