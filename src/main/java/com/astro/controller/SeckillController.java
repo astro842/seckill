@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +50,6 @@ public class SeckillController {
 
         return "detail";
     }
-
     @RequestMapping(value = "/{seckillId}/exposer" , method = RequestMethod.POST,
                     produces = {"application/json;charset=UTF-8"})
     @ResponseBody
@@ -67,7 +65,6 @@ public class SeckillController {
         }
         return result;
     }
-
     @RequestMapping(value = "/{seckillId}/{md5}/execution",method = RequestMethod.POST,
                     produces = {"application/json;charset=UTF-8"})
     @ResponseBody
@@ -98,7 +95,9 @@ public class SeckillController {
 
     }
 
-    @RequestMapping
+
+    @RequestMapping(value = "/time/now",method = RequestMethod.GET)
+    @ResponseBody
     public SeckillResult<Long> time(){
         Date now = new Date();
         return new SeckillResult<Long>(true,now.getTime());
