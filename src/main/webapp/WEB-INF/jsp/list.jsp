@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>秒杀商品列表1</title>
+    <title>秒杀商品列表</title>
     <%@include file="common/head.jsp" %>
 </head>
 <body>
