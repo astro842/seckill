@@ -74,21 +74,23 @@ public class SeckillServiceImpl implements SeckillService {
         if (md5 == null || !md5.equals(Md5Util.getMd5(seckillId))) {
             throw new SeckillException("md5错误");
         }
-        //减库存 +记录
 
         Date nowTime = new Date();
-
+        //事务 先插入成功记录再减库存 减少update行级锁的时间
         try {
+            //插入成功记录
+            int insert = successKilledDao.insertSuccessKilled(seckillId, userPhone);
+            if (insert <= 0) {
+                throw new RepeatKillException("重复秒杀");
+            }else {
+                //减库存 +记录
             int i = seckillDao.reduceNumber(seckillId, nowTime);
             if (i <= 0) {
                 throw new SeckillEndException("秒杀结束");
-            } else {
-                int insert = successKilledDao.insertSuccessKilled(seckillId, userPhone);
-                if (insert <= 0) {
-                    throw new RepeatKillException("重复秒杀");
-                } else {
-                    Successkilled successkilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
-                    return new SeckillExecution(seckillId, SeckillStateEnum.SUCCESS, successkilled);
+            }else {
+
+                Successkilled successkilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
+                return new SeckillExecution(seckillId, SeckillStateEnum.SUCCESS, successkilled);
                 }
             }
         } catch (SeckillEndException e1) {
