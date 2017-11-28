@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,6 +37,27 @@ public class RedisDaoTest {
             }
         }
     }
+    @Test
+    public void testSeckill1() throws Exception {
+
+        Seckill seckill = redisDao.getSeckill(id);
+        System.out.println(seckill);
+    }
+    @Test
+    public void testSeckill2() throws Exception {
+
+        Seckill seckill =  seckillDao.queryById(id);
+        redisDao.putSeckill(seckill);
+        System.out.println(seckill);
+    }
+
+    @Test
+    public void sss(){
+        //byte a[]={"\b\xe8\a\x12\x141000\xe5\x85\x83\xe7\xa7\x92\xe6\x9d\x80iphone6\x18\\!\x00t\x9b\xe9_\x01\x00\x00)\x00\xf8\xa7\r`\x01\x00\x001x\xd4\xac\xdc_\x01\x00\x00"};
+
+
+    }
+
 
 
 }

@@ -18,6 +18,8 @@ public class SeckillResult<T> {
         this.error = error;
     }
 
+
+
     public boolean isSuccess() {
         return success;
     }

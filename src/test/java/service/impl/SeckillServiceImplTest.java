@@ -1,4 +1,4 @@
-package com.astro.service.impl;
+package service.impl;
 
 import com.astro.dto.Exposer;
 import com.astro.dto.SeckillExecution;
@@ -59,7 +59,7 @@ public class SeckillServiceImplTest {
 
     @Test
     public void exportSeckillUrlAndExecuteSeckill() throws Exception {
-        Exposer exposer = seckillService.exportSeckillUrl(1000);
+        Exposer exposer = seckillService.exportSeckillUrl(1001);
         if (exposer.isExposed()){
             long userPhone=1216;
             String md5="059efb35e53e36be89c9d91c90fcd991";

@@ -2,6 +2,7 @@ package com.astro.service.impl;
 
 import com.astro.dao.SeckillDao;
 import com.astro.dao.SuccessKilledDao;
+import com.astro.dao.cache.RedisDao;
 import com.astro.dto.Exposer;
 import com.astro.dto.SeckillExecution;
 import com.astro.entity.Seckill;
@@ -33,6 +34,9 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
+
     public List<Seckill> getSeckillList() {
         return seckillDao.queryAll(0, 4);
     }
@@ -42,9 +46,15 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     public Exposer exportSeckillUrl(long seckillId) {
-        Seckill seckill = seckillDao.queryById(seckillId);
-        if (seckill == null) {
-            return new Exposer(false, seckillId);
+        //redis缓存
+        Seckill seckill=redisDao.getSeckill(seckillId);
+        if (seckill == null){
+            seckill = seckillDao.queryById(seckillId);
+            if (seckill == null) {
+                return new Exposer(false, seckillId);
+            }else {
+                redisDao.putSeckill(seckill);
+            }
         }
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
